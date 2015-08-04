@@ -55,7 +55,8 @@ echo -e "\n port = 3306 \n socket          = /var/run/mysqld/mysqld.sock" >> ~/.
 # http://dev.mysql.com/doc/refman/5.1/en/option-files.html
 
 #this line appends the rest of our custom my.cnf file to the end of the one we created on the previous lines
-cat mysql.cnf >> ~/.my.cnf
+cat mariadb.cnf >> ~/.my.cnf
+
 
 
 # Ubuntu local firewall (good idea to be thorough)
