@@ -94,11 +94,17 @@ service mysql start
 # http://dev.mysql.com/doc/refman/5.0/en/batch-mode.html
 # the stars are your root password
 # no need to enter the password here because we have it safely stored in the ~/.my.cnf file
-mysql -u root < commands.sql
+# Pass SQl commands in using the environment variables declared above
+# http://forums.mysql.com/read.php?20,261109,261492#msg-261492
+mysql -u root << SQL
+CREATE DATABASE moodle DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,CREATE TEMPORARY TABLES,DROP,INDEX,ALTER ON moodle.* TO moodleuser@'192.168.%.%' IDENTIFIED BY '$MOODLEUSERPASSWORD';
+flush privileges;
+SQL
 
 # Create the moodleuser with a  placeholder password - the execute this line mysqladmin to overwrite the password based on what is set at the top of this script.
 # http://www.cyberciti.biz/faq/mysql-change-root-password/
-mysqladmin -u moodleuser -p'placeholder' password $MOODLEUSERPASSWORD
+# mysqladmin -u moodleuser -p'placeholder' password $MOODLEUSERPASSWORD
 
 #install ganglia for monitoring
 sudo apt-get -y install ganglia-monitor
