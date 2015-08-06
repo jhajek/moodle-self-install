@@ -16,16 +16,18 @@ apt-get update
 sudo DEBIAN_FRONTEND=noninteractive  apt-get install -y  -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" ganglia-monitor rrdtool gmetad ganglia-webfrontend 
 
 sudo cp /etc/ganglia-webfrontend/apache.conf /etc/apache2/sites-enabled/ganglia.conf
+sudo cp ./gmond.conf /etc/ganglia/gmond.conf
+sudo cp ./gmetad.conf /etc/ganglia/gmetad.conf
 
 #sudo sed -i 's/\"hadoop-cluster\" localhost 192.168.98.218' /etc/ganglia/gmetad.conf
-sudo sed -i '/mcast_join = 239.2.11.71/i \ host = 192.168.224.188' /etc/ganglia/gmond.conf
-sudo sed -i 's/name = "unspecified"/#name = "hadoop-cluster"/g' /etc/ganglia/gmond.conf
-sudo sed -i 's/mcast_join = 239.2.11.71/#mcast_join = 239.2.11.71/g' /etc/ganglia/gmond.conf
-sudo sed -i 's/bind = 239.2.11.71/#bind = 239.2.11.71/g' /etc/ganglia/gmond.conf
+#sudo sed -i '/mcast_join = 239.2.11.71/i \ host = 192.168.224.188' /etc/ganglia/gmond.conf
+#sudo sed -i 's/name = "unspecified"/#name = "hadoop-cluster"/g' /etc/ganglia/gmond.conf
+#sudo sed -i 's/mcast_join = 239.2.11.71/#mcast_join = 239.2.11.71/g' /etc/ganglia/gmond.conf
+#sudo sed -i 's/bind = 239.2.11.71/#bind = 239.2.11.71/g' /etc/ganglia/gmond.conf
 
-sudo sed -i 's/port = 8649/#port = 8649/g' /etc/ganglia/gmond.conf
+#sudo sed -i 's/port = 8649/#port = 8649/g' /etc/ganglia/gmond.conf
 
-sudo sed -i 's/bind = 239.2.11.71/#bind = 239.2.11.71/g' /etc/ganglia/gmond.conf
+#sudo sed -i 's/bind = 239.2.11.71/#bind = 239.2.11.71/g' /etc/ganglia/gmond.conf
 
 sudo service ganglia-monitor restart
 sudo service gmetad restart
