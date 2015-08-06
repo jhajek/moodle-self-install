@@ -51,12 +51,16 @@ sudo apt-get install -y git curl wget rsync vim
 echo -e "[client] \n user = root \n password = $MARIADBPASSWORD" > ~/.my.cnf
 echo -e "\n port = 3306 \n socket          = /var/run/mysqld/mysqld.sock" >> ~/.my.cnf
 
+# Now we are going to stop the mysql (mariadb is a drop in plugin so we still use the mysql tools) server
+# to edit it
+service mysql stop
+
 # Insert our custom mysql/mariadb config settings in the local my.cnf  -- that way the system will override values for us in a graceful way - no need to modify with sed.
 # http://dev.mysql.com/doc/refman/5.1/en/option-files.html
 
 #this line appends the rest of our custom my.cnf file to the end of the one we created on the previous lines
-cat mariadb.cnf >> ~/.my.cnf
-
+#cat mariadb.cnf >> ~/.my.cnf
+cp ~/moodle-self-isntall/database/mariadb.cnf /etc/mysql/my.cnf
 
 
 # Ubuntu local firewall (good idea to be thorough)
@@ -64,16 +68,18 @@ ufw enable
 ufw allow from 192.168.0.0/16 to any port 3306
 ufw allow ssh
 
-# Now we are going to stop the mysql (mariadb is a drop in plugin so we still use the mysql tools) server
-# to edit it
-service mysql stop
 
 # Now use sed command to insert new values in the /etc/mysql/my.cnf 
 # or you can do this manually - the IP here is the private address of the database server - Unique to Eucalyptus systems 
+# http://dev.mysql.com/doc/refman/5.1/en/option-files.html
 PRIVATEIP=`curl http://169.254.169.254/latest/meta-data/local-ipv4`
 
-sed -i "s/bind-address            = 127.0.0.1/bind-address            = $PRIVATEIP/" ~/.my.cnf
-sed -i "s/datadir         = \/var\/lib\/mysql/datadir         = \/mnt\/vol-01\/datadir/" ~/.my.cnf
+# sed -i "s/bind-address            = 127.0.0.1/bind-address            = $PRIVATEIP/" ~/.my.cnf
+# sed -i "s/datadir         = \/var\/lib\/mysql/datadir         = \/mnt\/vol-01\/datadir/" ~/.my.cnf
+
+sed -i "s/bind-address            = 127.0.0.1/bind-address            = $PRIVATEIP/" /etc/mysql/my.cnf
+sed -i "s/datadir         = \/var\/lib\/mysql/datadir         = \/mnt\/vol-01\/datadir/" /etc/mysql/my.cnf
+
 
 # This line copies the actual mysql database files over to the new location
 cp -R /var/lib/mysql/* /mnt/vol-01/datadir
@@ -120,7 +126,7 @@ sudo apt-get install -y ganglia-monitor
 # sudo sed -i 's/port = 8649/#port = 8649/g' /etc/ganglia/gmond.conf
 # sudo sed -i 's/bind = 239.2.11.71/#bind = 239.2.11.71/g' /etc/ganglia/gmond.conf
 
-cp ./gmond.conf /etc/ganglia/gmond.conf
+cp ~/moodle-self-install/database/gmond.conf /etc/ganglia/gmond.conf
 
 sudo service ganglia-monitor restart
 

@@ -48,7 +48,7 @@ sudo apt-get install ganglia-monitor
 mkdir -p /mnt/vol-01/moodle
 mkdir -p /mnt/vol-01/moodledata
 
-cp -R ./moodle /mnt/vol-01/moodle
+cp -R ~/moodle-self-install/webserver/moodle/* /mnt/vol-01/moodle
 mkdir -p /mnt/vol-01/moodledata
 
 chown -R www-data /mnt/vol-01/moodledata
@@ -58,17 +58,18 @@ chmod -R 777 /mnt/vol-01/moodledata
 chmod -R 0755 /mnt/vol-01/moodle
 
 # Pull down the new apache conf.d to serve out of /mnt/vol-01/moodle or else nothing happens...:
-cp ./apache2.conf /etc/apache2/apache2.conf
-cp ./000-default.conf /etc/apache2/sites-available/000-default.conf
+service apache2 stop
+cp ~/moodle-self-install/webserver/apache2.conf /etc/apache2/apache2.conf
+cp ~/moodle-self-install/webserver/000-default.conf /etc/apache2/sites-available/000-default.conf
 # restart service to re-read the changes
-service apache2 restart
+service apache2 start
 
 
 # now automate the site install 
 PUBLICURL=`curl http://169.254.169.254/latest/meta-data/public-ipv4`
  HTTP="http://"
 # IP of remote database server - you need to retrieve this from the database install
-REMOTEURL="192.168.224.188"
+REMOTEURL="192.168.224.189"
 
  sudo -u www-data /usr/bin/php admin/cli/install.php --chmod=2770 --lang=en --wwwroot=$HTTP$PUBLICURL --dataroot=/mnt/vol-01/moodledata --dbtype=mariadb --dbhost=$REMOTEURL --dbuser=moodleuser --dbpass=Letmein --fullname="Greatest Site Ever" --shortname="Da Site" --adminuser=adminjrh --adminpass=Letmein1! --non-interactive --agree-license
  
