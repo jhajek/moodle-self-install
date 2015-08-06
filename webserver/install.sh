@@ -23,10 +23,10 @@ sudo apt-get update
 
 # Client
 # git client and some other tools
-sudo apt-get install git curl wget rsync vim
+sudo apt-get -y install git curl wget rsync vim
 
 # Applications needed for installing moodle with dependencies
-sudo apt-get install apache2 php5 graphviz aspell php5-pspell php5-curl php5-gd php5-intl php5-mysql php5-xmlrpc php5-ldap mariadb-client
+sudo apt-get -y install apache2 php5 graphviz aspell php5-pspell php5-curl php5-gd php5-intl php5-mysql php5-xmlrpc php5-ldap mariadb-client
 
 # pull source from Git
 # https://docs.moodle.org/29/en/Git_for_Administrators
@@ -48,8 +48,8 @@ sudo apt-get install ganglia-monitor
 mkdir -p /mnt/vol-01/moodle
 mkdir -p /mnt/vol-01/moodledata
 
-cp -R ~/moodle /mnt/vol-01/moodle
-mkdir -p /mnt.vol-01/moodledata
+cp -R ./moodle /mnt/vol-01/moodle
+mkdir -p /mnt/vol-01/moodledata
 
 chown -R www-data /mnt/vol-01/moodledata
 chown -R www-data /mnt/vol-01/moodle
