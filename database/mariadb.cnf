@@ -1,9 +1,3 @@
-Last login: Wed Aug 14 23:11:03 2013 from adsl-108-69-161-254.dsl.emhril.sbcglobal.net
-jliaw@lisle:~$ sudo nano /etc/mysql/my.cnf
-[sudo] password for jliaw:
-jliaw@lisle:~$ cat /etc/mysql/my.cnf
-
-Cat:  command dumps everything to output--then use PUTTY command copy all to clipboard
 #
 # The MySQL database server configuration file.
 #

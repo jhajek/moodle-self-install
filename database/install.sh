@@ -60,7 +60,7 @@ service mysql stop
 
 #this line appends the rest of our custom my.cnf file to the end of the one we created on the previous lines
 #cat mariadb.cnf >> ~/.my.cnf
-cp ~/moodle-self-isntall/database/mariadb.cnf /etc/mysql/my.cnf
+cp ~/moodle-self-install/database/mariadb.cnf /etc/mysql/my.cnf
 
 
 # Ubuntu local firewall (good idea to be thorough)
