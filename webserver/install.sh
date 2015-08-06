@@ -55,8 +55,8 @@ mkdir -p /mnt/vol-01/moodledata
 cp -R ~/moodle-self-install/webserver/moodle/* /mnt/vol-01/moodle
 mkdir -p /mnt/vol-01/moodledata
 
-chown -R www-data /mnt/vol-01/moodledata
-chown -R www-data /mnt/vol-01/moodle
+chown -R www-data:www-data /mnt/vol-01/moodledata
+chown -R www-data:www-data /mnt/vol-01/moodle
 
 chmod -R 777 /mnt/vol-01/moodledata
 chmod -R 0755 /mnt/vol-01/moodle
@@ -67,7 +67,6 @@ cp ~/moodle-self-install/webserver/apache2.conf /etc/apache2/apache2.conf
 cp ~/moodle-self-install/webserver/000-default.conf /etc/apache2/sites-available/000-default.conf
 # restart service to re-read the changes
 service apache2 start
-
 
 # now automate the site install 
 PUBLICURL=`curl http://169.254.169.254/latest/meta-data/public-ipv4`
