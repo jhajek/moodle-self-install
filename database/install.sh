@@ -113,14 +113,14 @@ sudo apt-get install -y ganglia-monitor
 # Add monitoring config here
 # Install Ganglia as a client to the central server
 # the host value is the private IP of the central ganlia server IP
-sudo sed -i '/mcast_join = 239.2.11.71/i \ host = 192.168.224.188' /etc/ganglia/gmond.conf
-sudo sed -i 's/name = "unspecified"/#name = "hadoop-cluster"/g' /etc/ganglia/gmond.conf
-sudo sed -i 's/mcast_join = 239.2.11.71/ #mcast_join = 239.2.11.71/g' /etc/ganglia/gmond.conf
-sudo sed -i 's/bind = 239.2.11.71/#bind = 239.2.11.71/g' /etc/ganglia/gmond.conf
+# sudo sed -i '/mcast_join = 239.2.11.71/i \ host = 192.168.224.188' /etc/ganglia/gmond.conf
+# sudo sed -i 's/name = "unspecified"/#name = "hadoop-cluster"/g' /etc/ganglia/gmond.conf
+# sudo sed -i 's/mcast_join = 239.2.11.71/ #mcast_join = 239.2.11.71/g' /etc/ganglia/gmond.conf
+# sudo sed -i 's/bind = 239.2.11.71/#bind = 239.2.11.71/g' /etc/ganglia/gmond.conf
+# sudo sed -i 's/port = 8649/#port = 8649/g' /etc/ganglia/gmond.conf
+# sudo sed -i 's/bind = 239.2.11.71/#bind = 239.2.11.71/g' /etc/ganglia/gmond.conf
 
-sudo sed -i 's/port = 8649/#port = 8649/g' /etc/ganglia/gmond.conf
-
-sudo sed -i 's/bind = 239.2.11.71/#bind = 239.2.11.71/g' /etc/ganglia/gmond.conf
+cp ./gmond.conf /etc/ganglia/gmond.conf
 
 sudo service ganglia-monitor restart
 

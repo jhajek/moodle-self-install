@@ -71,4 +71,23 @@ REMOTEURL="192.168.224.188"
 
  sudo -u www-data /usr/bin/php admin/cli/install.php --chmod=2770 --lang=en --wwwroot=$HTTP$PUBLICURL --dataroot=/mnt/vol-01/moodledata --dbtype=mariadb --dbhost=$REMOTEURL --dbuser=moodleuser --dbpass=Letmein --fullname="Greatest Site Ever" --shortname="Da Site" --adminuser=adminjrh --adminpass=Letmein1! --non-interactive --agree-license
  
- 
+ #install ganglia for monitoring
+sudo apt-get install -y ganglia-monitor
+
+# Add monitoring config here
+# Install Ganglia as a client to the central server
+# the host value is the private IP of the central ganlia server IP
+# sudo sed -i '/mcast_join = 239.2.11.71/i \ host = 192.168.224.188' /etc/ganglia/gmond.conf
+# sudo sed -i 's/name = "unspecified"/#name = "hadoop-cluster"/g' /etc/ganglia/gmond.conf
+# sudo sed -i 's/mcast_join = 239.2.11.71/ #mcast_join = 239.2.11.71/g' /etc/ganglia/gmond.conf
+# sudo sed -i 's/bind = 239.2.11.71/#bind = 239.2.11.71/g' /etc/ganglia/gmond.conf
+# sudo sed -i 's/port = 8649/#port = 8649/g' /etc/ganglia/gmond.conf
+# sudo sed -i 's/bind = 239.2.11.71/#bind = 239.2.11.71/g' /etc/ganglia/gmond.conf
+
+cp ./gmond.conf /etc/ganglia/gmond.conf
+
+sudo service ganglia-monitor restart
+
+# Install rsyslog
+# Again assuming that the IP here is the private cloud IP of the Central Rsyslog server
+sudo sed -i "$ a *.* @192.168.224.188:514" /etc/rsyslog.conf 
