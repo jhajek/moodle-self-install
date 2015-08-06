@@ -57,8 +57,8 @@ chmod -R 777 /mnt/vol-01/moodledata
 chmod -R 0755 /mnt/vol-01/moodle
 
 # Pull down the new apache conf.d to serve out of /mnt/vol-01/moodle or else nothing happens...:
-cp ~/apache2.conf /etc/apache2/apache2.conf
-cp ~/000-default.conf /etc/apache2/sites-available/000-default.conf
+cp ./apache2.conf /etc/apache2/apache2.conf
+cp ./000-default.conf /etc/apache2/sites-available/000-default.conf
 # restart service to re-read the changes
 service apache2 restart
 
@@ -67,6 +67,8 @@ service apache2 restart
 PUBLICURL=`curl http://169.254.169.254/latest/meta-data/public-ipv4`
  HTTP="http://"
 # IP of remote database server - you need to retrieve this from the database install
-REMOTEURL="192.168.119.75"
+REMOTEURL="192.168.YYY.ZZZ"
 
  sudo -u www-data /usr/bin/php admin/cli/install.php --chmod=2770 --lang=en --wwwroot=$HTTP$PUBLICURL --dataroot=/mnt/vol-01/moodledata --dbtype=mariadb --dbhost=$REMOTEURL --dbuser=moodleuser --dbpass=Letmein --fullname="Greatest Site Ever" --shortname="Da Site" --adminuser=adminjrh --adminpass=Letmein1! --non-interactive --agree-license
+ 
+ 
