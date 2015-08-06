@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -x
+set -e
 
 # Format extra space
 mkfs -t ext4 /dev/vdb
