@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -x
+set -e
 #This is what is needed to be run on an Ubuntu 14.04 instance in order to turn it into a Moodle Database webserver;
 
 # Setup system variables
