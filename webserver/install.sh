@@ -3,6 +3,10 @@
 set -x
 set -e
 
+# IP of remote database server - you need to retrieve this from the database install
+REMOTEURL="192.168.224.189"
+DBPASS="letmein2"
+
 # Format extra space
 mkfs -t ext4 /dev/vdb
 mkdir -p /mnt/vol-01
@@ -67,11 +71,9 @@ service apache2 start
 
 # now automate the site install 
 PUBLICURL=`curl http://169.254.169.254/latest/meta-data/public-ipv4`
- HTTP="http://"
-# IP of remote database server - you need to retrieve this from the database install
-REMOTEURL="192.168.224.189"
+HTTP="http://"
 
- sudo -u www-data /usr/bin/php admin/cli/install.php --chmod=2770 --lang=en --wwwroot=$HTTP$PUBLICURL --dataroot=/mnt/vol-01/moodledata --dbtype=mariadb --dbhost=$REMOTEURL --dbuser=moodleuser --dbpass=Letmein --fullname="Greatest Site Ever" --shortname="Da Site" --adminuser=adminjrh --adminpass=Letmein1! --non-interactive --agree-license
+sudo -u www-data /usr/bin/php /mnt/vol-01/moodle/admin/cli/install.php --chmod=2770 --lang=en --wwwroot=$HTTP$PUBLICURL --dataroot=/mnt/vol-01/moodledata --dbtype=mariadb --dbhost=$REMOTEURL --dbuser=moodleuser --dbpass=$DBPASS --fullname="Greatest Site Ever" --shortname="Da Site" --adminuser=adminjrh --adminpass=Letmein1! --non-interactive --agree-license
  
  #install ganglia for monitoring
 sudo apt-get install -y ganglia-monitor

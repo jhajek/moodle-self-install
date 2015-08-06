@@ -17,6 +17,6 @@ set -x
  mkdir -p /root/.moosh/moodleplugins
 
  moosh -n -p /mnt/vol-01/moodle plugin-list | grep theme_essential
- moosh -n -p /mnt/vol-01/moodle plugin-install theme_essential 19
+ moosh -n -p /mnt/vol-01/moodle plugin-install theme_essential 2.8
 
 # All done
