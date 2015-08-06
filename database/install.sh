@@ -108,6 +108,22 @@ SQL
 # mysqladmin -u moodleuser -p'placeholder' password $MOODLEUSERPASSWORD
 
 #install ganglia for monitoring
-sudo apt-get -y install ganglia-monitor
+sudo apt-get install -y ganglia-monitor
 
 # Add monitoring config here
+# Install Ganglia as a client to the central server
+# the host value is the private IP of the central ganlia server IP
+sudo sed -i '/mcast_join = 239.2.11.71/i \ host = 192.168.19.87' /etc/ganglia/gmond.conf
+sudo sed -i 's/name = "unspecified"/#name = "hadoop-cluster"/g' /etc/ganglia/gmond.conf
+sudo sed -i 's/mcast_join = 239.2.11.71/ #mcast_join = 239.2.11.71/g' /etc/ganglia/gmond.conf
+sudo sed -i 's/bind = 239.2.11.71/#bind = 239.2.11.71/g' /etc/ganglia/gmond.conf
+
+sudo sed -i 's/port = 8649/#port = 8649/g' /etc/ganglia/gmond.conf
+
+sudo sed -i 's/bind = 239.2.11.71/#bind = 239.2.11.71/g' /etc/ganglia/gmond.conf
+
+sudo service ganglia-monitor restart
+
+# Install rsyslog
+# Again assuming that the IP here is the private cloud IP of the Central Rsyslog server
+sudo sed -i "$ a *.* @192.168.19.87:514" /etc/rsyslog.conf 
