@@ -67,7 +67,7 @@ service apache2 restart
 PUBLICURL=`curl http://169.254.169.254/latest/meta-data/public-ipv4`
  HTTP="http://"
 # IP of remote database server - you need to retrieve this from the database install
-REMOTEURL="192.168.YYY.ZZZ"
+REMOTEURL="192.168.224.188"
 
  sudo -u www-data /usr/bin/php admin/cli/install.php --chmod=2770 --lang=en --wwwroot=$HTTP$PUBLICURL --dataroot=/mnt/vol-01/moodledata --dbtype=mariadb --dbhost=$REMOTEURL --dbuser=moodleuser --dbpass=Letmein --fullname="Greatest Site Ever" --shortname="Da Site" --adminuser=adminjrh --adminpass=Letmein1! --non-interactive --agree-license
  
