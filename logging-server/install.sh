@@ -24,9 +24,7 @@ sudo cp ./gmetad.conf /etc/ganglia/gmetad.conf
 #sudo sed -i 's/name = "unspecified"/#name = "hadoop-cluster"/g' /etc/ganglia/gmond.conf
 #sudo sed -i 's/mcast_join = 239.2.11.71/#mcast_join = 239.2.11.71/g' /etc/ganglia/gmond.conf
 #sudo sed -i 's/bind = 239.2.11.71/#bind = 239.2.11.71/g' /etc/ganglia/gmond.conf
-
 #sudo sed -i 's/port = 8649/#port = 8649/g' /etc/ganglia/gmond.conf
-
 #sudo sed -i 's/bind = 239.2.11.71/#bind = 239.2.11.71/g' /etc/ganglia/gmond.conf
 
 sudo service ganglia-monitor restart
@@ -35,7 +33,7 @@ sudo service apache2 restart
 
 # Configure and Install rsyslog and provide mariadb for logging
 # http://dba.stackexchange.com/questions/35866/install-mariadb-without-password-prompt-in-ubuntu?newreg=426e4e37d5a2474795c8b1c911f0fb9f
-echo "mariadb-server-5.5 mysql-server/root_password password $MARIADBPASSWORD" |sudo  debconf-set-selections
+echo "mariadb-server-5.5 mysql-server/root_password password $MARIADBPASSWORD" | sudo  debconf-set-selections
 echo "mariadb-server-5.5 mysql-server/root_password_again password $MARIADBPASSWORD" | sudo debconf-set-selections
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y rsyslog mariadb-server
 
