@@ -5,9 +5,13 @@ set -e
 
 # IP of remote database server - you need to retrieve this from the database install
 REMOTEURL="192.168.224.189"
+<<<<<<< HEAD
 DBPASS="letmein2" # needs to be the same as the moodleuser password you set in the database script.
 # What Moodle version?
 VERSION=28
+=======
+DBPASS="letmein2"
+>>>>>>> e1c245a73ce1f2e8c4ffb33a87a72268f65ff43e
 
 # Format extra space
 mkfs -t ext4 /dev/vdb
@@ -53,8 +57,8 @@ mkdir -p /mnt/vol-01/moodledata
 cp -R ~/moodle-self-install/webserver/moodle/* /mnt/vol-01/moodle
 mkdir -p /mnt/vol-01/moodledata
 
-chown -R www-data /mnt/vol-01/moodledata
-chown -R www-data /mnt/vol-01/moodle
+chown -R www-data:www-data /mnt/vol-01/moodledata
+chown -R www-data:www-data /mnt/vol-01/moodle
 
 chmod -R 777 /mnt/vol-01/moodledata
 chmod -R 0755 /mnt/vol-01/moodle
@@ -65,7 +69,6 @@ cp ~/moodle-self-install/webserver/apache2.conf /etc/apache2/apache2.conf
 cp ~/moodle-self-install/webserver/000-default.conf /etc/apache2/sites-available/000-default.conf
 # restart service to re-read the changes
 service apache2 start
-
 
 # now automate the site install 
 PUBLICURL=`curl http://169.254.169.254/latest/meta-data/public-ipv4`
